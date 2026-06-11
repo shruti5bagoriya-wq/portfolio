@@ -171,32 +171,33 @@ export default function Home() {
           </a>
         </section>
 
-        {/* ---------- BRANDS (first section) ---------- */}
-        <section className="border-y border-white/10 bg-white/[0.02]">
+        {/* ---------- BRANDS (light band, logos bare) ---------- */}
+        <section className="border-y border-white/10 bg-[#f6f5f1]">
           <div className="mx-auto w-full max-w-5xl px-6 py-12">
-            <p className="text-center font-display text-2xl uppercase tracking-wide text-white sm:text-3xl">
+            <p className="text-center font-display text-2xl uppercase tracking-wide text-indigo-950 sm:text-3xl">
               Brands I have worked with
             </p>
-            <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-5">
-              {LOGOS.map((logo) => (
-                <div
-                  key={logo.name}
-                  className="flex h-20 items-center justify-center rounded-xl bg-white px-4"
-                >
-                  {logo.src ? (
+            <div className="mt-9 overflow-hidden">
+              <div className="logo-track">
+                {[...LOGOS, ...LOGOS].map((logo, i) =>
+                  logo.src ? (
                     // eslint-disable-next-line @next/next/no-img-element
                     <img
+                      key={i}
                       src={logo.src}
                       alt={logo.name}
-                      className="max-h-10 w-auto object-contain"
+                      className="mr-16 h-12 w-auto max-w-[170px] shrink-0 object-contain"
                     />
                   ) : (
-                    <span className="text-center text-sm font-semibold text-indigo-950">
+                    <span
+                      key={i}
+                      className="mr-16 shrink-0 text-lg font-semibold text-indigo-950/50"
+                    >
                       {logo.name}
                     </span>
-                  )}
-                </div>
-              ))}
+                  )
+                )}
+              </div>
             </div>
           </div>
         </section>
