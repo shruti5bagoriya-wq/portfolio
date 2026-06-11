@@ -1,64 +1,303 @@
-import Image from "next/image";
+// ============================================================================
+//  EASY EDITS — fill these in as your assets are ready. Empty string = shows a
+//  clean "coming soon" placeholder instead of a broken embed.
+// ============================================================================
+
+const EMAIL = "shruti5bagoriya@gmail.com";
+
+// Your "get to know you" Google Form. Paste the link here and every
+// "Work with me" button points to it.
+const FORM_URL = "https://form.typeform.com/to/J1rF1tM9";
+
+// Your intro video (in the "Meet your growth partner" section).
+// Paste a Loom *share* link OR a YouTube link.
+const INTRO_VIDEO = "";
+
+// Socials (leave "" to hide that one)
+const SOCIALS = {
+  linkedin: "https://www.linkedin.com/",
+  twitter: "",
+  telegram: "",
+};
+
+// Hero stat bar — one consistent register, plus the strongest time-bound result.
+// TODO: confirm the "2.5 yrs" / "12+" figures with Shruti.
+const STATS = [
+  { n: "2.5 yrs", l: "doing this" },
+  { n: "12+", l: "projects" },
+];
+
+// Brands you've worked with. Names show as text until you add a logo file:
+// export each logo as a PNG into /public/logos/ and set its `src`.
+// NOTE: on the dark theme, use white / light versions of logos so dark-text
+// logos (DIPS, Dr. Water) don't disappear against the background.
+const LOGOS: { name: string; src: string }[] = [
+  { name: "Naturally Yours", src: "" },
+  { name: "Dr. Water", src: "" },
+  { name: "DhairyaDa", src: "" },
+  { name: "wellbi.in", src: "" },
+  { name: "C4E", src: "" },
+  { name: "Kopikar Dermatology", src: "" },
+  { name: "DIPS", src: "" },
+  { name: "matiks.play", src: "" },
+];
+
+// Case studies as Loom videos. Paste a Loom share link into `loom`.
+const CASE_STUDIES = [
+  {
+    title: "Scaling the LinkedIn of a CEO",
+    tag: "Series A consumer app · CEO",
+    blurb:
+      "2.5M+ organic impressions in 180 days — building a founder's authority on LinkedIn without him writing a single post.",
+    loom: "",
+  },
+  {
+    title: "Scaling the LinkedIn of a CTO",
+    tag: "Series A consumer app · CTO",
+    blurb:
+      "3.7M+ organic impressions in 180 days, 35K → 46K+ followers — turning a CTO's real shipping range into an audience.",
+    loom: "",
+  },
+];
+
+// Testimonials — fill in once Sudhanshu / Mohan send them.
+const TESTIMONIALS: { quote: string; name: string; role: string }[] = [
+  // { quote: "…", name: "First name", role: "Founder, Series A consumer app" },
+];
+
+// ============================================================================
+
+function toEmbed(url: string): string {
+  if (!url) return "";
+  if (url.includes("loom.com/share/"))
+    return url.replace("loom.com/share/", "loom.com/embed/");
+  if (url.includes("youtu.be/"))
+    return url.replace("youtu.be/", "www.youtube.com/embed/");
+  if (url.includes("watch?v="))
+    return url.replace("watch?v=", "embed/").replace("youtube.com", "www.youtube.com");
+  return url;
+}
+
+function VideoFrame({ url, label }: { url: string; label: string }) {
+  const embed = toEmbed(url);
+  if (!embed) {
+    return (
+      <div className="flex aspect-video w-full items-center justify-center rounded-2xl border-2 border-dashed border-white/15 bg-white/[0.03] text-center">
+        <div className="px-6">
+          <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-rose-500/20 text-xl text-rose-300">
+            ▶
+          </div>
+          <p className="mt-3 text-sm font-medium text-white/60">{label}</p>
+        </div>
+      </div>
+    );
+  }
+  return (
+    <div className="aspect-video w-full overflow-hidden rounded-2xl border border-white/10 bg-black">
+      <iframe src={embed} className="h-full w-full" allowFullScreen title={label} />
+    </div>
+  );
+}
 
 export default function Home() {
+  const workHref = FORM_URL || "#";
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
+    <div className="flex w-full flex-col bg-[#0d0c16]" id="top">
+      {/* ---------- NAV ---------- */}
+      <header className="sticky top-0 z-50 border-b border-white/10 bg-[#0d0c16]/85 backdrop-blur">
+        <nav className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
+          <a href="#top" className="font-display text-lg uppercase tracking-wide text-white">
+            Shruti Bagoriya
+          </a>
+          <a
+            href={workHref}
+            className="rounded-full bg-rose-500 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-rose-400"
+          >
+            Work with me
+          </a>
+        </nav>
+      </header>
+
+      <main className="flex flex-col">
+        {/* ---------- HERO ---------- */}
+        <section className="mx-auto flex min-h-[82vh] w-full max-w-5xl flex-col items-center justify-center px-6 py-20 text-center">
+          <span className="inline-block rounded-full bg-rose-500/20 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-rose-300">
+            LinkedIn ghostwriting for founders
+          </span>
+          <h1 className="mx-auto mt-6 max-w-4xl font-display text-5xl uppercase leading-[0.95] tracking-tight text-white sm:text-7xl">
+            LinkedIn content that builds trust + attention
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+          <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-indigo-100/70">
+            You keep building. I make sure the right people are watching.
           </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
+
+          {/* stat bar */}
+          <div className="mt-10 flex flex-wrap justify-center gap-x-12 gap-y-4">
+            {STATS.map((s) => (
+              <div key={s.l}>
+                <div className="font-display text-3xl text-white">{s.n}</div>
+                <div className="text-sm text-white/50">{s.l}</div>
+              </div>
+            ))}
+          </div>
+
           <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            href={workHref}
+            className="mt-10 inline-block rounded-full bg-rose-500 px-8 py-3.5 font-medium text-white transition-colors hover:bg-rose-400"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
+            Work with me
           </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
+        </section>
+
+        {/* ---------- BRANDS (first section) ---------- */}
+        <section className="border-y border-white/10 bg-white/[0.02]">
+          <div className="mx-auto w-full max-w-5xl px-6 py-12">
+            <p className="text-center font-display text-2xl uppercase tracking-wide text-white sm:text-3xl">
+              Brands I have worked with
+            </p>
+            <div className="mt-7 flex flex-wrap items-center justify-center gap-x-10 gap-y-5">
+              {LOGOS.map((logo) =>
+                logo.src ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    key={logo.name}
+                    src={logo.src}
+                    alt={logo.name}
+                    className="h-9 w-auto opacity-80 transition hover:opacity-100"
+                  />
+                ) : (
+                  <span key={logo.name} className="text-lg font-semibold text-white/45">
+                    {logo.name}
+                  </span>
+                )
+              )}
+            </div>
+          </div>
+        </section>
+
+        {/* ---------- MORE ABOUT ME / THE WORK (Loom case studies) ---------- */}
+        <section className="mx-auto w-full max-w-5xl px-6 py-16">
+          <h2 className="font-display text-3xl uppercase leading-tight tracking-tight text-white sm:text-5xl">
+            More about me and the kind of work I do.
+          </h2>
+          <div className="mt-10 grid gap-10 md:grid-cols-2">
+            {CASE_STUDIES.map((cs) => (
+              <div key={cs.title}>
+                <VideoFrame url={cs.loom} label={`${cs.title} — Loom coming soon`} />
+                <div className="mt-4">
+                  <span className="text-xs font-semibold uppercase tracking-wide text-rose-400">
+                    {cs.tag}
+                  </span>
+                  <h3 className="mt-1 font-display text-xl text-white">{cs.title}</h3>
+                  <p className="mt-2 leading-relaxed text-indigo-100/70">{cs.blurb}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* ---------- TESTIMONIALS ---------- */}
+        <section className="border-y border-white/10 bg-white/[0.02]">
+          <div className="mx-auto w-full max-w-5xl px-6 py-16">
+            <h2 className="font-display text-2xl uppercase leading-tight tracking-tight text-white sm:text-4xl">
+              Trusted by founders who've built and shipped.
+            </h2>
+            <div className="mt-10 grid gap-6 md:grid-cols-2">
+              {(TESTIMONIALS.length > 0
+                ? TESTIMONIALS
+                : [
+                    {
+                      quote: "Testimonial coming soon — what it's like to work with me.",
+                      name: "Founder",
+                      role: "Series A consumer app",
+                    },
+                    {
+                      quote: "Testimonial coming soon — what it's like to work with me.",
+                      name: "Founder",
+                      role: "Series A consumer app",
+                    },
+                  ]
+              ).map((t, i) => (
+                <figure key={i} className="rounded-2xl border border-white/10 bg-white/[0.04] p-7">
+                  <blockquote className="text-lg leading-relaxed text-white/90">
+                    "{t.quote}"
+                  </blockquote>
+                  <figcaption className="mt-5 text-sm font-medium text-white/60">
+                    — {t.name}, {t.role}
+                  </figcaption>
+                </figure>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ---------- MEET YOUR GROWTH PARTNER (intro video) ---------- */}
+        <section className="mx-auto w-full max-w-5xl px-6 py-16">
+          <h2 className="font-display text-3xl uppercase leading-tight tracking-tight text-white sm:text-5xl">
+            Meet your growth partner.
+          </h2>
+          <div className="mt-8 grid items-center gap-10 md:grid-cols-2">
+            <VideoFrame url={INTRO_VIDEO} label="My intro video — coming soon" />
+            <div className="space-y-4 text-lg leading-relaxed text-indigo-100/70">
+              <p>
+                Hi, I'm Shruti. I turn founder conversations into content. I
+                listen, ask better questions, and turn what's already happening
+                in your business into clear, relatable content.
+              </p>
+              <p>
+                You don't need to "create content" — you're already living it.
+                Meetings, launches, hires, hard calls, small wins. You just need
+                someone who can listen, connect the dots, and share it clearly
+                with the world.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* ---------- CTA ---------- */}
+        <section className="border-y border-white/10 bg-gradient-to-b from-rose-500/10 to-transparent">
+          <div className="mx-auto w-full max-w-5xl px-6 py-20 text-center">
+            <h2 className="font-display text-3xl uppercase leading-tight tracking-tight text-white sm:text-5xl">
+              Let's build your personal brand.
+            </h2>
+            <p className="mx-auto mt-4 max-w-xl text-lg text-indigo-100/70">
+              A few quick questions, and we'll take it from there.
+            </p>
+            <a
+              href={workHref}
+              className="mt-9 inline-block rounded-full bg-rose-500 px-8 py-3.5 font-medium text-white transition-colors hover:bg-rose-400"
+            >
+              Work with me
+            </a>
+          </div>
+        </section>
+
+        {/* ---------- FOOTER ---------- */}
+        <footer className="bg-[#0d0c16]">
+          <div className="mx-auto flex w-full max-w-5xl flex-col items-center justify-between gap-4 px-6 py-8 text-sm text-white/60 sm:flex-row">
+            <span>© 2026 Shruti Bagoriya</span>
+            <div className="flex items-center gap-5">
+              {SOCIALS.linkedin && (
+                <a href={SOCIALS.linkedin} target="_blank" rel="noopener noreferrer" className="hover:text-rose-400">
+                  LinkedIn
+                </a>
+              )}
+              {SOCIALS.twitter && (
+                <a href={SOCIALS.twitter} target="_blank" rel="noopener noreferrer" className="hover:text-rose-400">
+                  Twitter
+                </a>
+              )}
+              {SOCIALS.telegram && (
+                <a href={SOCIALS.telegram} target="_blank" rel="noopener noreferrer" className="hover:text-rose-400">
+                  Telegram
+                </a>
+              )}
+              <a href="#top" className="hover:text-rose-400">
+                ↑ Back to top
+              </a>
+            </div>
+          </div>
+        </footer>
       </main>
     </div>
   );
