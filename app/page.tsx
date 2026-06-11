@@ -37,7 +37,7 @@ const LOGOS: { name: string; src: string }[] = [
   { name: "DhairyaDa", src: "/logos/dhairyada.png" },
   { name: "wellbi.in", src: "/logos/wellbi.png" },
   { name: "C4E", src: "/logos/c4e.png" },
-  { name: "Kopikar Dermatology", src: "" },
+  { name: "Kopikar Dermatology", src: "/logos/kopikar.png" },
   { name: "DIPS", src: "/logos/dips.png" },
   { name: "matiks.play", src: "/logos/matiks.png" },
 ];
