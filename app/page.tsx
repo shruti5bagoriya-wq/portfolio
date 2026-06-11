@@ -1,13 +1,13 @@
+import Script from "next/script";
+
 // ============================================================================
 //  EASY EDITS — fill these in as your assets are ready. Empty string = shows a
 //  clean "coming soon" placeholder instead of a broken embed.
 // ============================================================================
 
-const EMAIL = "shruti5bagoriya@gmail.com";
-
-// Your "get to know you" Google Form. Paste the link here and every
-// "Work with me" button points to it.
-const FORM_URL = "https://form.typeform.com/to/J1rF1tM9";
+// Your Tally form, embedded at the bottom. Buttons scroll down to it (#apply).
+const TALLY_EMBED =
+  "https://tally.so/embed/NpOrjO?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1";
 
 // Your intro video (in the "Meet your growth partner" section).
 // Paste a Loom *share* link OR a YouTube link.
@@ -20,11 +20,10 @@ const SOCIALS = {
   telegram: "",
 };
 
-// Hero stat bar — one consistent register, plus the strongest time-bound result.
-// TODO: confirm the "2.5 yrs" / "12+" figures with Shruti.
+// Hero stat bar.  TODO: confirm the "2.5 yrs" / "12+" figures with Shruti.
 const STATS = [
-  { n: "2.5 yrs", l: "doing this" },
-  { n: "12+", l: "projects" },
+  { n: "2.5 yrs", l: "experience" },
+  { n: "12+", l: "social media projects" },
 ];
 
 // Brands you've worked with. Names show as text until you add a logo file:
@@ -32,37 +31,61 @@ const STATS = [
 // NOTE: on the dark theme, use white / light versions of logos so dark-text
 // logos (DIPS, Dr. Water) don't disappear against the background.
 const LOGOS: { name: string; src: string }[] = [
-  { name: "Naturally Yours", src: "" },
-  { name: "Dr. Water", src: "" },
-  { name: "DhairyaDa", src: "" },
-  { name: "wellbi.in", src: "" },
-  { name: "C4E", src: "" },
+  { name: "Naturally Yours", src: "/logos/naturally-yours.png" },
+  { name: "Dr. Water", src: "/logos/dr-water.png" },
+  { name: "Data Se", src: "/logos/data-se.png" },
+  { name: "DhairyaDa", src: "/logos/dhairyada.png" },
+  { name: "wellbi.in", src: "/logos/wellbi.png" },
+  { name: "C4E", src: "/logos/c4e.png" },
   { name: "Kopikar Dermatology", src: "" },
-  { name: "DIPS", src: "" },
-  { name: "matiks.play", src: "" },
+  { name: "DIPS", src: "/logos/dips.png" },
+  { name: "matiks.play", src: "/logos/matiks.png" },
 ];
 
 // Case studies as Loom videos. Paste a Loom share link into `loom`.
 const CASE_STUDIES = [
   {
-    title: "Scaling the LinkedIn of a CEO",
-    tag: "Series A consumer app · CEO",
+    title: "Building the wave",
+    tag: "CEO · Founder-led marketing",
     blurb:
-      "2.5M+ organic impressions in 180 days — building a founder's authority on LinkedIn without him writing a single post.",
+      "Founder-led marketing in his own voice — building a wave of attention around the product he's building. 2.5M+ organic impressions, without him writing a single post.",
     loom: "",
   },
   {
-    title: "Scaling the LinkedIn of a CTO",
-    tag: "Series A consumer app · CTO",
+    title: "Scaling LinkedIn for a CTO",
+    tag: "Consumer app · CTO",
     blurb:
-      "3.7M+ organic impressions in 180 days, 35K → 46K+ followers — turning a CTO's real shipping range into an audience.",
+      "Growing a CTO's audience from 35K to 46K+ followers and 3.7M+ organic impressions — turning his real shipping range into a following.",
     loom: "",
   },
 ];
 
-// Testimonials — fill in once Sudhanshu / Mohan send them.
+// Testimonials — real LinkedIn recommendations from her social-media clients.
 const TESTIMONIALS: { quote: string; name: string; role: string }[] = [
-  // { quote: "…", name: "First name", role: "Founder, Series A consumer app" },
+  {
+    quote:
+      "Loved working with Shruti. Meticulous and hard working. Wishing you the best.",
+    name: "Vinod C",
+    role: "Founder & CEO, Naturally Yours",
+  },
+  {
+    quote:
+      "Shruti helped us plan, strategize, shoot and post content for our brand in the US market. With no prior experience shooting content, she picked it up quickly and delivered results.",
+    name: "Smile Bhateja",
+    role: "Co-founder, Dr.Water",
+  },
+  {
+    quote:
+      "Shruti's work as a social media manager for our company pages was absolutely amazing! From helping us build a voice to making our targets reality, she did a great job. I'll absolutely recommend her work.",
+    name: "Siddhida Kabara",
+    role: "Founder & CEO, DhairyaDa",
+  },
+  {
+    quote:
+      "From the moment we started, Shruti showed real expertise and dedication. Her attention to detail, creativity, and problem-solving were evident throughout — and she always met deadlines. A reliable, talented professional I wholeheartedly recommend.",
+    name: "Chirag Bhoraniya",
+    role: "Marketing & Production Manager, Kreative Resinroom",
+  },
 ];
 
 // ============================================================================
@@ -100,7 +123,6 @@ function VideoFrame({ url, label }: { url: string; label: string }) {
 }
 
 export default function Home() {
-  const workHref = FORM_URL || "#";
   return (
     <div className="flex w-full flex-col bg-[#0d0c16]" id="top">
       {/* ---------- NAV ---------- */}
@@ -110,7 +132,7 @@ export default function Home() {
             Shruti Bagoriya
           </a>
           <a
-            href={workHref}
+            href="#apply"
             className="rounded-full bg-rose-500 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-rose-400"
           >
             Work with me
@@ -142,7 +164,7 @@ export default function Home() {
           </div>
 
           <a
-            href={workHref}
+            href="#apply"
             className="mt-10 inline-block rounded-full bg-rose-500 px-8 py-3.5 font-medium text-white transition-colors hover:bg-rose-400"
           >
             Work with me
@@ -155,22 +177,26 @@ export default function Home() {
             <p className="text-center font-display text-2xl uppercase tracking-wide text-white sm:text-3xl">
               Brands I have worked with
             </p>
-            <div className="mt-7 flex flex-wrap items-center justify-center gap-x-10 gap-y-5">
-              {LOGOS.map((logo) =>
-                logo.src ? (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img
-                    key={logo.name}
-                    src={logo.src}
-                    alt={logo.name}
-                    className="h-9 w-auto opacity-80 transition hover:opacity-100"
-                  />
-                ) : (
-                  <span key={logo.name} className="text-lg font-semibold text-white/45">
-                    {logo.name}
-                  </span>
-                )
-              )}
+            <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-5">
+              {LOGOS.map((logo) => (
+                <div
+                  key={logo.name}
+                  className="flex h-20 items-center justify-center rounded-xl bg-white px-4"
+                >
+                  {logo.src ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      src={logo.src}
+                      alt={logo.name}
+                      className="max-h-10 w-auto object-contain"
+                    />
+                  ) : (
+                    <span className="text-center text-sm font-semibold text-indigo-950">
+                      {logo.name}
+                    </span>
+                  )}
+                </div>
+              ))}
             </div>
           </div>
         </section>
@@ -254,21 +280,26 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ---------- CTA ---------- */}
-        <section className="border-y border-white/10 bg-gradient-to-b from-rose-500/10 to-transparent">
-          <div className="mx-auto w-full max-w-5xl px-6 py-20 text-center">
-            <h2 className="font-display text-3xl uppercase leading-tight tracking-tight text-white sm:text-5xl">
-              Let's build your personal brand.
-            </h2>
-            <p className="mx-auto mt-4 max-w-xl text-lg text-indigo-100/70">
-              A few quick questions, and we'll take it from there.
-            </p>
-            <a
-              href={workHref}
-              className="mt-9 inline-block rounded-full bg-rose-500 px-8 py-3.5 font-medium text-white transition-colors hover:bg-rose-400"
-            >
+        {/* ---------- WORK WITH ME (embedded form) ---------- */}
+        <section id="apply" className="border-t border-white/10 py-20">
+          <div className="mx-auto w-full max-w-3xl px-6">
+            <h2 className="text-center font-display text-4xl uppercase leading-tight tracking-tight text-white sm:text-6xl">
               Work with me
-            </a>
+            </h2>
+            <p className="mx-auto mt-3 max-w-md text-center text-indigo-100/70">
+              Takes 2 minutes. I'll get back to you within 24 hours.
+            </p>
+            <div className="mt-8 overflow-hidden rounded-2xl bg-white p-2 shadow-2xl sm:p-4">
+              <iframe
+                data-tally-src={TALLY_EMBED}
+                src={TALLY_EMBED}
+                loading="lazy"
+                width="100%"
+                height={500}
+                title="Work with me"
+                className="w-full rounded-xl"
+              />
+            </div>
           </div>
         </section>
 
@@ -299,6 +330,9 @@ export default function Home() {
           </div>
         </footer>
       </main>
+
+      {/* Tally embed script — adds dynamic height to the form above */}
+      <Script src="https://tally.so/widgets/embed.js" strategy="lazyOnload" />
     </div>
   );
 }
