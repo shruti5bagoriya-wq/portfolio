@@ -64,6 +64,12 @@ const CASE_STUDIES = [
 const TESTIMONIALS: { quote: string; name: string; role: string }[] = [
   {
     quote:
+      "Shruti has been managing my LinkedIn presence and brings real structure to the process. Every week she hops on a call to understand what's happening, and turns it into well-drafted posts ready for my review. She's responsive to feedback and keeps the tone and voice consistent. What stands out most is how professional she is: dependable, organised, and genuinely invested in doing the work well.",
+    name: "A consumer-app CTO",
+    role: "",
+  },
+  {
+    quote:
       "Loved working with Shruti. Meticulous and hard working. Wishing you the best.",
     name: "Vinod C",
     role: "Founder & CEO, Naturally Yours",
@@ -186,7 +192,7 @@ export default function Home() {
                       key={i}
                       src={logo.src}
                       alt={logo.name}
-                      className="mr-16 h-12 w-auto max-w-[170px] shrink-0 object-contain"
+                      className="mr-16 h-16 w-auto max-w-[210px] shrink-0 object-contain"
                     />
                   ) : (
                     <span
@@ -250,7 +256,8 @@ export default function Home() {
                     "{t.quote}"
                   </blockquote>
                   <figcaption className="mt-5 text-sm font-medium text-white/60">
-                    — {t.name}, {t.role}
+                    — {t.name}
+                    {t.role ? `, ${t.role}` : ""}
                   </figcaption>
                 </figure>
               ))}
