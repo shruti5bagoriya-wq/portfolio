@@ -64,6 +64,12 @@ const CASE_STUDIES = [
 const TESTIMONIALS: { quote: string; name: string; role: string }[] = [
   {
     quote:
+      "The thing I appreciate most is that she has taken the effort to understand how I think and communicate. Time is always a crunch for me, and instead of adding more meetings or back and forth, she has built her own process to get context from me in the most efficient way possible. I can usually just dump my thoughts, what happened during the week, and what's on my mind, and she turns that into content that sounds like me. She doesn't just write content, she keeps improving the process of working together. Would definitely recommend her to anyone looking for a ghostwriter who can understand their voice and make content creation feel effortless.",
+    name: "A consumer-app CEO",
+    role: "",
+  },
+  {
+    quote:
       "Shruti has been managing my LinkedIn presence and brings real structure to the process. Every week she hops on a call to understand what's happening, and turns it into well-drafted posts ready for my review. She's responsive to feedback and keeps the tone and voice consistent. What stands out most is how professional she is: dependable, organised, and genuinely invested in doing the work well.",
     name: "A consumer-app CTO",
     role: "",
