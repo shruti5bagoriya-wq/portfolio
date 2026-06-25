@@ -13,6 +13,11 @@ const TALLY_EMBED =
 // Paste a Loom *share* link OR a YouTube link.
 const INTRO_VIDEO = "";
 
+// Your photo (shows in the "Meet your growth partner" section). Drop a headshot
+// into /public (e.g. /public/shruti.jpg) and set the path below. If both PHOTO
+// and INTRO_VIDEO are empty, a clean placeholder shows. PHOTO wins if both set.
+const PHOTO = "/shruti.jpg";
+
 // Socials (leave "" to hide that one)
 const SOCIALS = {
   linkedin: "https://www.linkedin.com/",
@@ -24,6 +29,7 @@ const SOCIALS = {
 const STATS = [
   { n: "2.5 yrs", l: "experience" },
   { n: "12+", l: "social media projects" },
+  { n: "6M+", l: "organic impressions" },
 ];
 
 // Brands you've worked with. Names show as text until you add a logo file:
@@ -117,12 +123,12 @@ function VideoFrame({ url, label }: { url: string; label: string }) {
   const embed = toEmbed(url);
   if (!embed) {
     return (
-      <div className="flex aspect-video w-full items-center justify-center rounded-2xl border-2 border-dashed border-white/15 bg-white/[0.03] text-center">
+      <div className="flex aspect-video w-full items-center justify-center rounded-2xl border border-dashed border-white/15 bg-white/[0.03] text-center">
         <div className="px-6">
-          <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-rose-500/20 text-xl text-rose-300">
+          <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-accent/20 text-xl text-accent">
             ▶
           </div>
-          <p className="mt-3 text-sm font-medium text-white/60">{label}</p>
+          <p className="mt-3 text-sm font-medium text-white/55">{label}</p>
         </div>
       </div>
     );
@@ -134,62 +140,76 @@ function VideoFrame({ url, label }: { url: string; label: string }) {
   );
 }
 
+// Small uppercase section label with an accent tick.
+function Kicker({ index, children }: { index: string; children: React.ReactNode }) {
+  return (
+    <div className="flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.2em] text-accent">
+      <span className="font-display text-sm text-white/30">{index}</span>
+      <span className="h-px w-8 bg-accent/50" />
+      <span>{children}</span>
+    </div>
+  );
+}
+
 export default function Home() {
   return (
-    <div className="flex w-full flex-col bg-[#0d0c16]" id="top">
+    <div className="relative flex w-full flex-col" id="top">
+      {/* ---------- ATMOSPHERE (fixed, behind everything) ---------- */}
+      <div className="bg-atmosphere" aria-hidden="true">
+        <div className="aurora" />
+        <div className="grain" />
+      </div>
+
       {/* ---------- NAV ---------- */}
-      <header className="sticky top-0 z-50 border-b border-white/10 bg-[#0d0c16]/85 backdrop-blur">
+      <header className="sticky top-0 z-50 border-b border-white/10 bg-[#09080f]/80 backdrop-blur-md">
         <nav className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
           <a href="#top" className="font-display text-lg uppercase tracking-wide text-white">
             Shruti Bagoriya
           </a>
-          <a
-            href="#apply"
-            className="rounded-full bg-rose-500 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-rose-400"
-          >
+          <a href="#apply" className="btn px-4 py-2 text-sm">
             Work with me
           </a>
         </nav>
       </header>
 
-      <main className="flex flex-col">
+      <main className="relative z-10 flex flex-col">
         {/* ---------- HERO ---------- */}
-        <section className="mx-auto flex min-h-[82vh] w-full max-w-5xl flex-col items-center justify-center px-6 py-20 text-center">
-          <span className="inline-block rounded-full bg-rose-500/20 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-rose-300">
-            LinkedIn ghostwriting for founders
+        <section className="mx-auto flex min-h-[calc(100svh-64px)] w-full max-w-5xl flex-col items-center justify-center px-6 py-12 text-center">
+          <span className="reveal inline-block rounded-full border border-accent/30 bg-accent/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-accent">
+            Content partner for founders building in public
           </span>
-          <h1 className="mx-auto mt-6 max-w-4xl font-display text-5xl uppercase leading-[0.95] tracking-tight text-white sm:text-7xl">
-            LinkedIn content that builds trust + attention
+          <h1 className="reveal mx-auto mt-7 max-w-4xl font-display text-5xl uppercase leading-[1.08] tracking-tight text-white sm:text-7xl" style={{ animationDelay: "0.08s" }}>
+            LinkedIn content that builds{" "}
+            <span className="bg-gradient-to-r from-accent to-accent-2 bg-clip-text text-transparent">
+              trust <span className="mx-2 sm:mx-3">+</span> attention
+            </span>
           </h1>
-          <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-indigo-100/70">
+          <p className="reveal mx-auto mt-7 max-w-xl font-serif text-xl italic leading-relaxed text-indigo-100/75" style={{ animationDelay: "0.16s" }}>
             You keep building. I make sure the right people are watching.
           </p>
 
           {/* stat bar */}
-          <div className="mt-10 flex flex-wrap justify-center gap-x-12 gap-y-4">
+          <div className="reveal mt-12 flex flex-wrap items-center justify-center divide-x divide-white/10" style={{ animationDelay: "0.24s" }}>
             {STATS.map((s) => (
-              <div key={s.l}>
+              <div key={s.l} className="px-7">
                 <div className="font-display text-3xl text-white">{s.n}</div>
-                <div className="text-sm text-white/50">{s.l}</div>
+                <div className="mt-1 text-sm text-white/50">{s.l}</div>
               </div>
             ))}
           </div>
 
-          <a
-            href="#apply"
-            className="mt-10 inline-block rounded-full bg-rose-500 px-8 py-3.5 font-medium text-white transition-colors hover:bg-rose-400"
-          >
-            Work with me
+          <a href="#apply" className="reveal btn mt-12 px-8 py-3.5 text-base" style={{ animationDelay: "0.32s" }}>
+            Work with me →
           </a>
         </section>
 
-        {/* ---------- BRANDS (light band, logos bare) ---------- */}
+        {/* ---------- BRANDS (light band, edge-faded marquee) ---------- */}
         <section className="border-y border-white/10 bg-[#f6f5f1]">
           <div className="mx-auto w-full max-w-5xl px-6 py-12">
-            <p className="text-center font-display text-2xl uppercase tracking-wide text-indigo-950 sm:text-3xl">
+            <p className="text-center text-xs font-semibold uppercase tracking-[0.22em] text-indigo-950/50">
               Brands I have worked with
             </p>
-            <div className="mt-9 overflow-hidden">
+            <div className="marquee-mask mt-8 overflow-hidden">
               <div className="logo-track">
                 {[...LOGOS, ...LOGOS].map((logo, i) =>
                   logo.src ? (
@@ -203,7 +223,7 @@ export default function Home() {
                   ) : (
                     <span
                       key={i}
-                      className="mr-16 shrink-0 text-lg font-semibold text-indigo-950/50"
+                      className="mr-16 shrink-0 text-lg font-semibold text-indigo-950/45"
                     >
                       {logo.name}
                     </span>
@@ -214,20 +234,23 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ---------- MORE ABOUT ME / THE WORK (Loom case studies) ---------- */}
-        <section className="mx-auto w-full max-w-5xl px-6 py-16">
-          <h2 className="font-display text-3xl uppercase leading-tight tracking-tight text-white sm:text-5xl">
-            More about me and the kind of work I do.
-          </h2>
-          <div className="mt-10 grid gap-10 md:grid-cols-2">
-            {CASE_STUDIES.map((cs) => (
-              <div key={cs.title}>
+        {/* ---------- THE WORK (Loom case studies) ---------- */}
+        <section className="mx-auto w-full max-w-5xl px-6 py-20">
+          <div className="reveal">
+            <Kicker index="01">The work</Kicker>
+            <h2 className="mt-5 max-w-3xl font-display text-3xl uppercase leading-tight tracking-tight text-white sm:text-5xl">
+              More about me and the kind of work I do.
+            </h2>
+          </div>
+          <div className="mt-12 grid gap-10 md:grid-cols-2">
+            {CASE_STUDIES.map((cs, i) => (
+              <div key={cs.title} className="reveal" style={{ animationDelay: `${i * 0.1}s` }}>
                 <VideoFrame url={cs.loom} label={`${cs.title} — Loom coming soon`} />
-                <div className="mt-4">
-                  <span className="text-xs font-semibold uppercase tracking-wide text-rose-400">
+                <div className="mt-5">
+                  <span className="text-xs font-semibold uppercase tracking-[0.16em] text-accent">
                     {cs.tag}
                   </span>
-                  <h3 className="mt-1 font-display text-xl text-white">{cs.title}</h3>
+                  <h3 className="mt-2 font-display text-xl uppercase tracking-tight text-white">{cs.title}</h3>
                   <p className="mt-2 leading-relaxed text-indigo-100/70">{cs.blurb}</p>
                 </div>
               </div>
@@ -237,31 +260,31 @@ export default function Home() {
 
         {/* ---------- TESTIMONIALS ---------- */}
         <section className="border-y border-white/10 bg-white/[0.02]">
-          <div className="mx-auto w-full max-w-5xl px-6 py-16">
-            <h2 className="font-display text-2xl uppercase leading-tight tracking-tight text-white sm:text-4xl">
-              Trusted by founders who've built and shipped.
-            </h2>
-            <div className="mt-10 grid gap-6 md:grid-cols-2">
-              {(TESTIMONIALS.length > 0
-                ? TESTIMONIALS
-                : [
-                    {
-                      quote: "Testimonial coming soon — what it's like to work with me.",
-                      name: "Founder",
-                      role: "Series A consumer app",
-                    },
-                    {
-                      quote: "Testimonial coming soon — what it's like to work with me.",
-                      name: "Founder",
-                      role: "Series A consumer app",
-                    },
-                  ]
-              ).map((t, i) => (
-                <figure key={i} className="rounded-2xl border border-white/10 bg-white/[0.04] p-7">
-                  <blockquote className="text-lg leading-relaxed text-white/90">
-                    "{t.quote}"
+          <div className="mx-auto w-full max-w-5xl px-6 py-20">
+            <div className="reveal">
+              <Kicker index="02">Social proof</Kicker>
+              <h2 className="mt-5 max-w-3xl font-display text-2xl uppercase leading-tight tracking-tight text-white sm:text-4xl">
+                Trusted by founders who&apos;ve built and shipped.
+              </h2>
+            </div>
+            <div className="mt-12 grid gap-6 md:grid-cols-2">
+              {TESTIMONIALS.map((t, i) => (
+                <figure
+                  key={i}
+                  className={`card rounded-2xl border border-white/10 bg-white/[0.035] p-7 ${
+                    i === 0 ? "md:col-span-2" : ""
+                  } reveal`}
+                  style={{ animationDelay: `${(i % 2) * 0.08}s` }}
+                >
+                  <div className="font-serif text-3xl leading-none text-accent/60">&ldquo;</div>
+                  <blockquote
+                    className={`mt-2 font-serif leading-relaxed text-white/90 ${
+                      i === 0 ? "text-xl" : "text-lg"
+                    }`}
+                  >
+                    {t.quote}
                   </blockquote>
-                  <figcaption className="mt-5 text-sm font-medium text-white/60">
+                  <figcaption className="mt-5 text-sm font-medium text-white/55">
                     — {t.name}
                     {t.role ? `, ${t.role}` : ""}
                   </figcaption>
@@ -272,38 +295,56 @@ export default function Home() {
         </section>
 
         {/* ---------- MEET YOUR GROWTH PARTNER (intro video) ---------- */}
-        <section className="mx-auto w-full max-w-5xl px-6 py-16">
-          <h2 className="font-display text-3xl uppercase leading-tight tracking-tight text-white sm:text-5xl">
-            Meet your growth partner.
-          </h2>
-          <div className="mt-8 grid items-center gap-10 md:grid-cols-2">
-            <VideoFrame url={INTRO_VIDEO} label="My intro video — coming soon" />
-            <div className="space-y-4 text-lg leading-relaxed text-indigo-100/70">
-              <p>
-                Hi, I'm Shruti. I turn founder conversations into content. I
-                listen, ask better questions, and turn what's already happening
-                in your business into clear, relatable content.
+        <section className="mx-auto w-full max-w-5xl px-6 py-20">
+          <div className="reveal">
+            <Kicker index="03">Who you&apos;re working with</Kicker>
+            <h2 className="mt-5 font-display text-3xl uppercase leading-tight tracking-tight text-white sm:text-5xl">
+              Meet your growth partner.
+            </h2>
+          </div>
+          <div className="mt-10 grid items-center gap-10 md:grid-cols-2">
+            <div className="reveal">
+              {PHOTO ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src={PHOTO}
+                  alt="Shruti Bagoriya"
+                  className="aspect-[4/5] w-full rounded-2xl border border-white/10 object-cover"
+                />
+              ) : (
+                <VideoFrame url={INTRO_VIDEO} label="My intro video — coming soon" />
+              )}
+            </div>
+            <div className="reveal space-y-4 text-lg leading-relaxed text-indigo-100/75" style={{ animationDelay: "0.1s" }}>
+              <p className="font-serif text-xl italic text-white/90">
+                Hi, I&apos;m Shruti. I turn founder conversations into content.
               </p>
               <p>
-                You don't need to "create content" — you're already living it.
-                Meetings, launches, hires, hard calls, small wins. You just need
-                someone who can listen, connect the dots, and share it clearly
-                with the world.
+                I listen, ask better questions, and turn what&apos;s already
+                happening in your business into clear, relatable content.
+              </p>
+              <p>
+                You don&apos;t need to &ldquo;create content&rdquo; — you&apos;re
+                already living it. Meetings, launches, hires, hard calls, small
+                wins. You just need someone who can listen, connect the dots, and
+                share it clearly with the world.
               </p>
             </div>
           </div>
         </section>
 
         {/* ---------- WORK WITH ME (embedded form) ---------- */}
-        <section id="apply" className="border-t border-white/10 py-20">
+        <section id="apply" className="relative border-t border-white/10 py-24">
           <div className="mx-auto w-full max-w-3xl px-6">
-            <h2 className="text-center font-display text-4xl uppercase leading-tight tracking-tight text-white sm:text-6xl">
-              Work with me
-            </h2>
-            <p className="mx-auto mt-3 max-w-md text-center text-indigo-100/70">
-              Takes 2 minutes. I'll get back to you within 24 hours.
-            </p>
-            <div className="mt-8 overflow-hidden rounded-2xl bg-white p-2 shadow-2xl sm:p-4">
+            <div className="reveal text-center">
+              <h2 className="font-display text-4xl uppercase leading-tight tracking-tight text-white sm:text-6xl">
+                Work with me
+              </h2>
+              <p className="mx-auto mt-4 max-w-md font-serif text-lg italic text-indigo-100/75">
+                Takes 2 minutes. I&apos;ll get back to you within 24 hours.
+              </p>
+            </div>
+            <div className="reveal mt-9 overflow-hidden rounded-2xl bg-white p-2 shadow-2xl sm:p-4" style={{ animationDelay: "0.1s" }}>
               <iframe
                 data-tally-src={TALLY_EMBED}
                 src={TALLY_EMBED}
@@ -318,35 +359,62 @@ export default function Home() {
         </section>
 
         {/* ---------- FOOTER ---------- */}
-        <footer className="bg-[#0d0c16]">
-          <div className="mx-auto flex w-full max-w-5xl flex-col items-center justify-between gap-4 px-6 py-8 text-sm text-white/60 sm:flex-row">
-            <span>© 2026 Shruti Bagoriya</span>
+        <footer>
+          <div className="mx-auto flex w-full max-w-5xl flex-col items-center justify-between gap-4 px-6 py-8 text-sm text-white/55 sm:flex-row">
+            <span className="font-display uppercase tracking-wide text-white/70">
+              Shruti Bagoriya
+            </span>
             <div className="flex items-center gap-5">
               {SOCIALS.linkedin && (
-                <a href={SOCIALS.linkedin} target="_blank" rel="noopener noreferrer" className="hover:text-rose-400">
+                <a href={SOCIALS.linkedin} target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-accent">
                   LinkedIn
                 </a>
               )}
               {SOCIALS.twitter && (
-                <a href={SOCIALS.twitter} target="_blank" rel="noopener noreferrer" className="hover:text-rose-400">
+                <a href={SOCIALS.twitter} target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-accent">
                   Twitter
                 </a>
               )}
               {SOCIALS.telegram && (
-                <a href={SOCIALS.telegram} target="_blank" rel="noopener noreferrer" className="hover:text-rose-400">
+                <a href={SOCIALS.telegram} target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-accent">
                   Telegram
                 </a>
               )}
-              <a href="#top" className="hover:text-rose-400">
+              <a href="#top" className="transition-colors hover:text-accent">
                 ↑ Back to top
               </a>
             </div>
+          </div>
+          <div className="border-t border-white/5 py-4 text-center text-xs text-white/35">
+            © 2026 Shruti Bagoriya
           </div>
         </footer>
       </main>
 
       {/* Tally embed script — adds dynamic height to the form above */}
       <Script src="https://tally.so/widgets/embed.js" strategy="lazyOnload" />
+
+      {/* Scroll-reveal — fade content up as it enters the viewport */}
+      <Script id="reveal-observer" strategy="afterInteractive">
+        {`
+          (function () {
+            var els = document.querySelectorAll('.reveal');
+            if (!('IntersectionObserver' in window)) {
+              els.forEach(function (el) { el.classList.add('in'); });
+              return;
+            }
+            var io = new IntersectionObserver(function (entries) {
+              entries.forEach(function (e) {
+                if (e.isIntersecting) {
+                  e.target.classList.add('in');
+                  io.unobserve(e.target);
+                }
+              });
+            }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+            els.forEach(function (el) { io.observe(el); });
+          })();
+        `}
+      </Script>
     </div>
   );
 }

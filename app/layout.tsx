@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Anton } from "next/font/google";
+import { Geist, Anton, Fraunces } from "next/font/google";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -12,6 +12,13 @@ const anton = Anton({
   variable: "--font-anton",
   subsets: ["latin"],
   weight: "400",
+});
+
+// Editorial serif for voice lines + quotes — signals "writer," not template.
+const fraunces = Fraunces({
+  variable: "--font-fraunces",
+  subsets: ["latin"],
+  style: ["normal", "italic"],
 });
 
 export const metadata: Metadata = {
@@ -28,8 +35,17 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${anton.variable} h-full antialiased`}
+      suppressHydrationWarning
+      className={`${geistSans.variable} ${anton.variable} ${fraunces.variable} h-full antialiased`}
     >
+      <head>
+        {/* Add `js` before paint so reveal animations never hide content on no-JS */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: "document.documentElement.classList.add('js')",
+          }}
+        />
+      </head>
       <body className="min-h-full flex flex-col">{children}</body>
     </html>
   );

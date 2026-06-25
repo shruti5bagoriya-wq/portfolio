@@ -1,16 +1,21 @@
 @import "tailwindcss";
 
 :root {
-  /* Dark — Option B */
-  --background: #0d0c16;
+  /* Deep ink base + warm coral accent */
+  --background: #09080f;
   --foreground: #ededf5;
+  --accent: #ff6a5a;
+  --accent-2: #ffb37a;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-accent: var(--accent);
+  --color-accent-2: var(--accent-2);
   --font-sans: var(--font-geist-sans);
   --font-display: var(--font-anton);
+  --font-serif: var(--font-fraunces);
 }
 
 html {
@@ -23,14 +28,104 @@ body {
   font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
 }
 
-/* Brand logo marquee — drifts right → left, loops seamlessly */
-@keyframes logo-scroll {
+/* ===========================================================================
+   Atmospheric background — fixed, behind all content
+   =========================================================================== */
+.bg-atmosphere {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.aurora {
+  position: absolute;
+  top: -25%;
+  left: 50%;
+  width: 130vw;
+  height: 95vh;
+  transform: translateX(-50%);
+  background:
+    radial-gradient(38% 48% at 28% 32%, rgba(255, 106, 90, 0.24), transparent 70%),
+    radial-gradient(42% 44% at 72% 24%, rgba(255, 179, 122, 0.17), transparent 70%),
+    radial-gradient(40% 42% at 52% 64%, rgba(118, 84, 255, 0.13), transparent 72%);
+  filter: blur(48px);
+  animation: aurora-drift 24s ease-in-out infinite;
+}
+
+.grain {
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.045;
+  mix-blend-mode: overlay;
+}
+
+@keyframes aurora-drift {
+  0% { transform: translateX(-50%) translateY(-2%) rotate(0deg); }
+  50% { transform: translateX(-46%) translateY(3%) rotate(6deg); }
+  100% { transform: translateX(-50%) translateY(-2%) rotate(0deg); }
+}
+
+/* ===========================================================================
+   Scroll-reveal — content fades up as it enters the viewport.
+   Gated behind .js so the page is fully visible if JS never runs.
+   =========================================================================== */
+.js .reveal {
+  opacity: 0;
+}
+.js .reveal.in {
+  animation: fade-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes fade-up {
   from {
-    transform: translateX(0);
+    opacity: 0;
+    transform: translateY(26px);
   }
   to {
-    transform: translateX(-50%);
+    opacity: 1;
+    transform: translateY(0);
   }
+}
+
+/* ===========================================================================
+   Buttons + small UI bits
+   =========================================================================== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 9999px;
+  background: var(--accent);
+  color: #1c0b08;
+  font-weight: 600;
+  box-shadow: 0 10px 34px -10px var(--accent);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+}
+.btn:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.06);
+  box-shadow: 0 16px 44px -10px var(--accent);
+}
+
+/* Cards lift slightly on hover */
+.card {
+  transition: transform 0.25s ease, border-color 0.25s ease, background-color 0.25s ease;
+}
+.card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(255, 106, 90, 0.35);
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* ===========================================================================
+   Brand logo marquee — drifts right → left, edge-faded, loops seamlessly
+   =========================================================================== */
+@keyframes logo-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
 }
 .logo-track {
   display: flex;
@@ -43,8 +138,32 @@ body {
 .logo-track:hover {
   animation-play-state: paused;
 }
+.marquee-mask {
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 7%, #000 93%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 7%, #000 93%, transparent);
+}
+
+/* ===========================================================================
+   Reduced motion — kill all movement, keep everything visible
+   =========================================================================== */
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .aurora {
+    animation: none;
+  }
+  .js .reveal {
+    opacity: 1;
+  }
+  .js .reveal.in {
+    animation: none;
+  }
   .logo-track {
     animation: none;
+  }
+  .btn:hover,
+  .card:hover {
+    transform: none;
   }
 }
