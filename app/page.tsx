@@ -54,55 +54,79 @@ const CASE_STUDIES = [
     title: "Building the wave",
     tag: "CEO · Founder-led marketing",
     blurb:
-      "Founder-led marketing in his own voice — building a wave of attention around the product he's building. 2.5M+ organic impressions, without him writing a single post.",
-    loom: "",
+      "Founder-led marketing in his own voice, building a wave of attention around the product he's building. 2.5M+ organic impressions, without him writing a single post.",
+    cover: "/case-studies/case-study-1.jpg",
+    loom: "https://www.loom.com/share/87ffa4ac6f444877afe77bedfa02977d",
   },
   {
     title: "Scaling LinkedIn for a CTO",
     tag: "Consumer app · CTO",
     blurb:
-      "Growing a CTO's audience from 35K to 46K+ followers and 3.7M+ organic impressions — turning his real shipping range into a following.",
-    loom: "",
+      "Growing a CTO's audience from 35K to 46K+ followers and 3.6M+ organic impressions, by turning the real work he ships every week into content people want to follow.",
+    cover: "/case-studies/case-study-2.jpg",
+    loom: "https://www.loom.com/share/cb8b76b1965e45d5b4dc184a5043c6bc",
   },
 ];
 
-// Testimonials — real LinkedIn recommendations from her social-media clients.
-const TESTIMONIALS: { quote: string; name: string; role: string }[] = [
+// Testimonials — real LinkedIn recommendations from her clients. `photo` empty
+// means the client stays anonymous (no name/face shown); a path means a real,
+// named LinkedIn recommendation with the client's profile photo.
+const TESTIMONIALS: {
+  quote: string;
+  name: string;
+  role: string;
+  photo: string;
+  date: string;
+  anon?: boolean;
+}[] = [
   {
     quote:
       "The thing I appreciate most is that she has taken the effort to understand how I think and communicate. Time is always a crunch for me, and instead of adding more meetings or back and forth, she has built her own process to get context from me in the most efficient way possible. I can usually just dump my thoughts, what happened during the week, and what's on my mind, and she turns that into content that sounds like me. She doesn't just write content, she keeps improving the process of working together. Would definitely recommend her to anyone looking for a ghostwriter who can understand their voice and make content creation feel effortless.",
-    name: "A consumer-app CEO",
-    role: "",
+    name: "Sudhanshu Bhatia",
+    role: "Co-Founder, Matiks",
+    photo: "/testimonials/sudhanshu.jpg",
+    date: "Jun 2026",
   },
   {
     quote:
       "Shruti has been managing my LinkedIn presence and brings real structure to the process. Every week she hops on a call to understand what's happening, and turns it into well-drafted posts ready for my review. She's responsive to feedback and keeps the tone and voice consistent. What stands out most is how professional she is: dependable, organised, and genuinely invested in doing the work well.",
     name: "A consumer-app CTO",
-    role: "",
+    role: "Building a consumer app",
+    photo: "/testimonials/cto.jpg",
+    date: "Jun 2026",
+    anon: true,
   },
   {
     quote:
       "Loved working with Shruti. Meticulous and hard working. Wishing you the best.",
     name: "Vinod C",
     role: "Founder & CEO, Naturally Yours",
+    photo: "/testimonials/vinod.jpg",
+    date: "Jun 2026",
   },
   {
     quote:
       "Shruti helped us plan, strategize, shoot and post content for our brand in the US market. With no prior experience shooting content, she picked it up quickly and delivered results.",
     name: "Smile Bhateja",
-    role: "Co-founder, Dr.Water",
+    role: "Founder, Dr. Water",
+    photo: "/testimonials/smile.jpg",
+    date: "May 2025",
   },
   {
     quote:
       "Shruti's work as a social media manager for our company pages was absolutely amazing! From helping us build a voice to making our targets reality, she did a great job. I'll absolutely recommend her work.",
     name: "Siddhida Kabara",
     role: "Founder & CEO, DhairyaDa",
+    photo: "/testimonials/siddhida.jpg",
+    date: "Feb 2025",
   },
   {
     quote:
       "From the moment we started, Shruti showed real expertise and dedication. Her attention to detail, creativity, and problem-solving were evident throughout — and she always met deadlines. A reliable, talented professional I wholeheartedly recommend.",
     name: "Chirag Bhoraniya",
     role: "Marketing & Production Manager, Kreative Resinroom",
+    photo: "/testimonials/chirag.jpg",
+    date: "Mar 2024",
   },
 ];
 
@@ -140,6 +164,127 @@ function VideoFrame({ url, label }: { url: string; label: string }) {
   );
 }
 
+// Case-study media: a clickable cover slide that opens the Loom walkthrough in
+// a new tab. Falls back to a static cover (no Loom yet) or the empty placeholder.
+function CaseStudyMedia({
+  cover,
+  loom,
+  title,
+}: {
+  cover: string;
+  loom: string;
+  title: string;
+}) {
+  if (cover && loom) {
+    return (
+      <a
+        href={loom}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="group relative block aspect-square w-full overflow-hidden rounded-2xl border border-white/10"
+      >
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={cover}
+          alt={title}
+          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+        />
+        <div className="absolute inset-0 flex items-center justify-center bg-black/10 transition-colors group-hover:bg-black/25">
+          <span className="flex h-16 w-16 items-center justify-center rounded-full bg-accent pl-1 text-2xl text-[#1c0b08] shadow-xl transition-transform duration-300 group-hover:scale-110">
+            ▶
+          </span>
+        </div>
+        <span className="absolute bottom-3 right-3 rounded-full bg-black/60 px-3 py-1 text-xs font-medium text-white/90 backdrop-blur">
+          Watch on Loom
+        </span>
+      </a>
+    );
+  }
+  if (cover) {
+    return (
+      <div className="relative aspect-square w-full overflow-hidden rounded-2xl border border-white/10">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={cover} alt={title} className="h-full w-full object-cover" />
+        <span className="absolute bottom-3 right-3 rounded-full bg-black/60 px-3 py-1 text-xs font-medium text-white/90 backdrop-blur">
+          Walkthrough coming soon
+        </span>
+      </div>
+    );
+  }
+  return <VideoFrame url={loom} label={`${title} · Loom coming soon`} />;
+}
+
+// LinkedIn wordmark logo, used on recommendation cards.
+function LinkedInMark({ className = "" }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} fill="#0A66C2" aria-hidden="true">
+      <path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0z" />
+    </svg>
+  );
+}
+
+// One LinkedIn-recommendation card. Named clients show photo + name + "1st";
+// anonymous clients show a neutral avatar and a withheld-name label.
+function TestimonialCard({
+  t,
+  featured,
+}: {
+  t: {
+    quote: string;
+    name: string;
+    role: string;
+    photo: string;
+    date: string;
+    anon?: boolean;
+  };
+  featured?: boolean;
+}) {
+  return (
+    <figure
+      className={`card flex flex-col rounded-2xl border border-white/10 bg-white/[0.035] p-7 ${
+        featured ? "md:col-span-2" : ""
+      }`}
+    >
+      <div className="flex items-center gap-3">
+        {t.photo ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={`${t.photo}?v=2`}
+            alt={t.name}
+            className="h-12 w-12 shrink-0 rounded-full object-cover"
+          />
+        ) : (
+          <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-white/10 text-white/40">
+            <svg viewBox="0 0 24 24" className="h-6 w-6" fill="currentColor" aria-hidden="true">
+              <path d="M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10zm0 2c-4.42 0-8 2.24-8 5v1h16v-1c0-2.76-3.58-5-8-5z" />
+            </svg>
+          </div>
+        )}
+        <div className="min-w-0">
+          <div className="flex items-center gap-1.5">
+            <span className="truncate font-semibold text-white">{t.name}</span>
+            {!t.anon && t.photo && <span className="text-xs text-white/40">· 1st</span>}
+          </div>
+          <div className="truncate text-xs text-white/50">{t.role}</div>
+        </div>
+        <LinkedInMark className="ml-auto h-5 w-5 shrink-0" />
+      </div>
+
+      <blockquote
+        className={`mt-5 flex-1 font-serif leading-relaxed text-white/90 ${
+          featured ? "text-xl" : "text-lg"
+        }`}
+      >
+        {t.quote}
+      </blockquote>
+
+      <figcaption className="mt-5 text-xs text-white/40">
+        Recommended on LinkedIn{t.date ? ` · ${t.date}` : ""}
+      </figcaption>
+    </figure>
+  );
+}
+
 // Small uppercase section label with an accent tick.
 function Kicker({ index, children }: { index: string; children: React.ReactNode }) {
   return (
@@ -166,34 +311,47 @@ export default function Home() {
           <a href="#top" className="font-display text-lg uppercase tracking-wide text-white">
             Shruti Bagoriya
           </a>
-          <a href="#apply" className="btn px-4 py-2 text-sm">
-            Work with me
-          </a>
+          <div className="flex items-center gap-7">
+            <div className="hidden items-center gap-7 text-sm text-white/70 md:flex">
+              <a href="#work" className="transition-colors hover:text-white">
+                Case studies
+              </a>
+              <a href="#proof" className="transition-colors hover:text-white">
+                Social proof
+              </a>
+              <a href="#about" className="transition-colors hover:text-white">
+                About
+              </a>
+            </div>
+            <a href="#apply" className="btn px-4 py-2 text-sm">
+              Work with me
+            </a>
+          </div>
         </nav>
       </header>
 
       <main className="relative z-10 flex flex-col">
         {/* ---------- HERO ---------- */}
         <section className="mx-auto flex min-h-[calc(100svh-64px)] w-full max-w-5xl flex-col items-center justify-center px-6 py-12 text-center">
-          <span className="reveal inline-block rounded-full border border-accent/30 bg-accent/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-accent">
+          <span className="reveal inline-block rounded-full border border-accent/30 bg-accent/10 px-5 py-2 text-sm font-semibold uppercase tracking-[0.18em] text-accent">
             Content partner for founders building in public
           </span>
-          <h1 className="reveal mx-auto mt-7 max-w-4xl font-display text-5xl uppercase leading-[1.08] tracking-tight text-white sm:text-7xl" style={{ animationDelay: "0.08s" }}>
+          <h1 className="reveal mx-auto mt-10 max-w-4xl font-display text-6xl uppercase leading-[1.08] tracking-tight text-white sm:text-[5.25rem]" style={{ animationDelay: "0.08s" }}>
             LinkedIn content that builds{" "}
             <span className="bg-gradient-to-r from-accent to-accent-2 bg-clip-text text-transparent">
               trust <span className="mx-2 sm:mx-3">+</span> attention
             </span>
           </h1>
-          <p className="reveal mx-auto mt-7 max-w-xl font-serif text-xl italic leading-relaxed text-indigo-100/75" style={{ animationDelay: "0.16s" }}>
+          <p className="reveal mx-auto mt-7 max-w-xl font-serif text-2xl italic leading-relaxed text-indigo-100/75" style={{ animationDelay: "0.16s" }}>
             You keep building. I make sure the right people are watching.
           </p>
 
           {/* stat bar */}
-          <div className="reveal mt-12 flex flex-wrap items-center justify-center divide-x divide-white/10" style={{ animationDelay: "0.24s" }}>
+          <div className="reveal mt-14 flex flex-wrap items-center justify-center gap-y-6 divide-x divide-white/10" style={{ animationDelay: "0.24s" }}>
             {STATS.map((s) => (
-              <div key={s.l} className="px-7">
-                <div className="font-display text-3xl text-white">{s.n}</div>
-                <div className="mt-1 text-sm text-white/50">{s.l}</div>
+              <div key={s.l} className="px-10">
+                <div className="font-display text-4xl text-white">{s.n}</div>
+                <div className="mt-1 text-base text-white/50">{s.l}</div>
               </div>
             ))}
           </div>
@@ -235,7 +393,7 @@ export default function Home() {
         </section>
 
         {/* ---------- THE WORK (Loom case studies) ---------- */}
-        <section className="mx-auto w-full max-w-5xl px-6 py-20">
+        <section id="work" className="mx-auto w-full max-w-5xl scroll-mt-24 px-6 py-24">
           <div className="reveal">
             <Kicker index="01">The work</Kicker>
             <h2 className="mt-5 max-w-3xl font-display text-3xl uppercase leading-tight tracking-tight text-white sm:text-5xl">
@@ -245,12 +403,12 @@ export default function Home() {
           <div className="mt-12 grid gap-10 md:grid-cols-2">
             {CASE_STUDIES.map((cs, i) => (
               <div key={cs.title} className="reveal" style={{ animationDelay: `${i * 0.1}s` }}>
-                <VideoFrame url={cs.loom} label={`${cs.title} — Loom coming soon`} />
+                <CaseStudyMedia cover={cs.cover} loom={cs.loom} title={cs.title} />
                 <div className="mt-5">
                   <span className="text-xs font-semibold uppercase tracking-[0.16em] text-accent">
                     {cs.tag}
                   </span>
-                  <h3 className="mt-2 font-display text-xl uppercase tracking-tight text-white">{cs.title}</h3>
+                  <h3 className="mt-2 font-display text-2xl uppercase tracking-[0.06em] text-white">{cs.title}</h3>
                   <p className="mt-2 leading-relaxed text-indigo-100/70">{cs.blurb}</p>
                 </div>
               </div>
@@ -259,43 +417,33 @@ export default function Home() {
         </section>
 
         {/* ---------- TESTIMONIALS ---------- */}
-        <section className="border-y border-white/10 bg-white/[0.02]">
-          <div className="mx-auto w-full max-w-5xl px-6 py-20">
+        <section id="proof" className="scroll-mt-24 border-y border-white/10 bg-white/[0.02]">
+          <div className="mx-auto w-full max-w-5xl px-6 py-24">
             <div className="reveal">
               <Kicker index="02">Social proof</Kicker>
               <h2 className="mt-5 max-w-3xl font-display text-2xl uppercase leading-tight tracking-tight text-white sm:text-4xl">
                 Trusted by founders who&apos;ve built and shipped.
               </h2>
             </div>
-            <div className="mt-12 grid gap-6 md:grid-cols-2">
-              {TESTIMONIALS.map((t, i) => (
-                <figure
-                  key={i}
-                  className={`card rounded-2xl border border-white/10 bg-white/[0.035] p-7 ${
-                    i === 0 ? "md:col-span-2" : ""
-                  } reveal`}
+            {/* Masonry so cards pack by content height — no gaps from uneven
+                lengths. Leads with Sudhanshu (named + face + exact LinkedIn
+                service), then a real face, then the rest. */}
+            <div className="mt-12 columns-1 gap-6 md:columns-2">
+              {[0, 4, 3, 1, 5, 2].map((idx, i) => (
+                <div
+                  key={idx}
+                  className="reveal mb-6 break-inside-avoid"
                   style={{ animationDelay: `${(i % 2) * 0.08}s` }}
                 >
-                  <div className="font-serif text-3xl leading-none text-accent/60">&ldquo;</div>
-                  <blockquote
-                    className={`mt-2 font-serif leading-relaxed text-white/90 ${
-                      i === 0 ? "text-xl" : "text-lg"
-                    }`}
-                  >
-                    {t.quote}
-                  </blockquote>
-                  <figcaption className="mt-5 text-sm font-medium text-white/55">
-                    — {t.name}
-                    {t.role ? `, ${t.role}` : ""}
-                  </figcaption>
-                </figure>
+                  <TestimonialCard t={TESTIMONIALS[idx]} />
+                </div>
               ))}
             </div>
           </div>
         </section>
 
         {/* ---------- MEET YOUR GROWTH PARTNER (intro video) ---------- */}
-        <section className="mx-auto w-full max-w-5xl px-6 py-20">
+        <section id="about" className="mx-auto w-full max-w-5xl scroll-mt-24 px-6 py-24">
           <div className="reveal">
             <Kicker index="03">Who you&apos;re working with</Kicker>
             <h2 className="mt-5 font-display text-3xl uppercase leading-tight tracking-tight text-white sm:text-5xl">
@@ -312,7 +460,7 @@ export default function Home() {
                   className="aspect-[4/5] w-full rounded-2xl border border-white/10 object-cover object-[72%_center]"
                 />
               ) : (
-                <VideoFrame url={INTRO_VIDEO} label="My intro video — coming soon" />
+                <VideoFrame url={INTRO_VIDEO} label="My intro video, coming soon" />
               )}
             </div>
             <div className="reveal space-y-4 text-lg leading-relaxed text-indigo-100/75" style={{ animationDelay: "0.1s" }}>
@@ -321,18 +469,18 @@ export default function Home() {
               </p>
               <p>
                 Over the last two years I&apos;ve worked with 30+ founders, and
-                they all want the same thing — to build visibility and
+                they all want the same thing: to build visibility and
                 credibility, so the right people know who they are and trust
-                what they&apos;re building. That&apos;s never been harder:
-                everyone&apos;s posting, feeds are cluttered with AI content, and
+                what they&apos;re building. That&apos;s never been harder.
+                Everyone&apos;s posting, feeds are cluttered with AI content, and
                 you don&apos;t have the time to sit down and write.
               </p>
               <p>
-                My secret sauce? It&apos;s you. I interview you — your real week,
-                your real decisions — and turn it into content that builds
-                trust, grows your audience, and turns that attention into what
-                actually moves your company: users, hires, and the investors who
-                want in.
+                My secret sauce? It&apos;s you. I interview you about your real
+                week and your real decisions, then turn it into content that
+                builds trust, grows your audience, and turns that attention into
+                what actually moves your company: users, hires, and the
+                investors who want in.
               </p>
               <p className="font-serif text-xl italic text-white/90">
                 You shouldn&apos;t have to choose between building your company

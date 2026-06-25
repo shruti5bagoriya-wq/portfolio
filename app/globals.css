@@ -19,6 +19,9 @@
 }
 
 html {
+  /* Bump the base size so all rem-based text + spacing scales up together,
+     for legibility (the "can my mum read it" bar). */
+  font-size: 18px;
   scroll-behavior: smooth;
 }
 
