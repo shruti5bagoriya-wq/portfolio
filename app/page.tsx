@@ -309,7 +309,7 @@ export default function Home() {
                 <img
                   src={PHOTO}
                   alt="Shruti Bagoriya"
-                  className="aspect-[4/5] w-full rounded-2xl border border-white/10 object-cover"
+                  className="aspect-[4/5] w-full rounded-2xl border border-white/10 object-cover object-[72%_center]"
                 />
               ) : (
                 <VideoFrame url={INTRO_VIDEO} label="My intro video — coming soon" />
@@ -320,14 +320,23 @@ export default function Home() {
                 Hi, I&apos;m Shruti. I turn founder conversations into content.
               </p>
               <p>
-                I listen, ask better questions, and turn what&apos;s already
-                happening in your business into clear, relatable content.
+                Over the last two years I&apos;ve worked with 30+ founders, and
+                they all want the same thing — to build visibility and
+                credibility, so the right people know who they are and trust
+                what they&apos;re building. That&apos;s never been harder:
+                everyone&apos;s posting, feeds are cluttered with AI content, and
+                you don&apos;t have the time to sit down and write.
               </p>
               <p>
-                You don&apos;t need to &ldquo;create content&rdquo; — you&apos;re
-                already living it. Meetings, launches, hires, hard calls, small
-                wins. You just need someone who can listen, connect the dots, and
-                share it clearly with the world.
+                My secret sauce? It&apos;s you. I interview you — your real week,
+                your real decisions — and turn it into content that builds
+                trust, grows your audience, and turns that attention into what
+                actually moves your company: users, hires, and the investors who
+                want in.
+              </p>
+              <p className="font-serif text-xl italic text-white/90">
+                You shouldn&apos;t have to choose between building your company
+                and being known for it. That&apos;s exactly what I do.
               </p>
             </div>
           </div>
