@@ -23,9 +23,9 @@ const fraunces = Fraunces({
 
 const SITE_URL = "https://shrutibagoriya.vercel.app";
 const SITE_TITLE =
-  "Shruti Bagoriya — Content partner for founders building in public";
+  "Shruti Bagoriya — Content strategist & ghostwriter for consumer app founders";
 const SITE_DESC =
-  "LinkedIn ghostwriting for founders. I turn your everyday work — meetings, hires, decisions — into content that earns trust, stays visible, and compounds over time.";
+  "You have a POV worth sharing. I turn it into content that drives users, attracts talent, and builds credibility — LinkedIn ghostwriting for consumer app founders.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),

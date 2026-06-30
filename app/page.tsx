@@ -27,8 +27,8 @@ const SOCIALS = {
 
 // Hero stat bar.  TODO: confirm the "2.5 yrs" / "12+" figures with Shruti.
 const STATS = [
-  { n: "2.5 yrs", l: "experience" },
-  { n: "12+", l: "social media projects" },
+  { n: "~3 yrs", l: "experience" },
+  { n: "12+", l: "founders" },
   { n: "6M+", l: "organic impressions" },
 ];
 
@@ -317,7 +317,7 @@ export default function Home() {
                 Case studies
               </a>
               <a href="#proof" className="transition-colors hover:text-white">
-                Social proof
+                Testimonials
               </a>
               <a href="#about" className="transition-colors hover:text-white">
                 About
@@ -334,7 +334,7 @@ export default function Home() {
         {/* ---------- HERO ---------- */}
         <section className="mx-auto flex min-h-[calc(100svh-64px)] w-full max-w-5xl flex-col items-center justify-center px-6 py-12 text-center">
           <span className="reveal inline-block rounded-full border border-accent/30 bg-accent/10 px-5 py-2 text-sm font-semibold uppercase tracking-[0.18em] text-accent">
-            Content partner for founders building in public
+            Content strategist & ghostwriter for consumer app founders
           </span>
           <h1 className="reveal mx-auto mt-10 max-w-4xl font-display text-6xl uppercase leading-[1.08] tracking-tight text-white sm:text-[5.25rem]" style={{ animationDelay: "0.08s" }}>
             LinkedIn content that builds{" "}
@@ -343,7 +343,7 @@ export default function Home() {
             </span>
           </h1>
           <p className="reveal mx-auto mt-7 max-w-xl font-serif text-2xl italic leading-relaxed text-indigo-100/75" style={{ animationDelay: "0.16s" }}>
-            You keep building. I make sure the right people are watching.
+            You have a POV. I turn it into content that drives users, attracts talent, and builds credibility.
           </p>
 
           {/* stat bar */}
@@ -420,7 +420,7 @@ export default function Home() {
         <section id="proof" className="scroll-mt-24 border-y border-white/10 bg-white/[0.02]">
           <div className="mx-auto w-full max-w-5xl px-6 py-24">
             <div className="reveal">
-              <Kicker index="02">Social proof</Kicker>
+              <Kicker index="02">Testimonials</Kicker>
               <h2 className="mt-5 max-w-3xl font-display text-2xl uppercase leading-tight tracking-tight text-white sm:text-4xl">
                 Trusted by founders who&apos;ve built and shipped.
               </h2>
@@ -468,7 +468,7 @@ export default function Home() {
                 Hi, I&apos;m Shruti. I turn founder conversations into content.
               </p>
               <p>
-                Over the last two years I&apos;ve worked with 30+ founders, and
+                Over the last ~3 years I&apos;ve worked with 12+ founders, and
                 they all want the same thing: to build visibility and
                 credibility, so the right people know who they are and trust
                 what they&apos;re building. That&apos;s never been harder.
